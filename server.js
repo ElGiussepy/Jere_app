@@ -9,7 +9,7 @@ const PORT = 3000;
 
 // Ruta de ejemplo
 app.get('/', (req, res) => {
-  res.send('¡Hola, mundo! El gussepy');
+  res.send('El gussepy');
 });
 
 // Iniciar el servidor

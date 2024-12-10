@@ -1,0 +1,4 @@
+pasos para istalar las dependencias
+
+npm install en la raiz del proyecto.
+
