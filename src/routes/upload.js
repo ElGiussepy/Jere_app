@@ -18,7 +18,7 @@ function processExcel(filePath) {
 
 // Función para guardar datos en la base de datos
 function saveToDatabase(data) {
-    const query = `INSERT INTO tu_tabla (columna1, columna2, columna3) VALUES (?, ?, ?)`;
+    const query = `INSERT INTO mi_tabla (columna1, columna2, columna3) VALUES (?, ?, ?)`;
 
     data.forEach(row => {
         const values = [row.columna1, row.columna2, row.columna3]; // Ajustar columnas según el Excel
