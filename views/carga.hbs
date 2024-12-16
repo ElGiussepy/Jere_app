@@ -1,0 +1,11 @@
+// carga.hbs
+<h1>Subir Archivo Excel</h1>
+<form action="/upload" method="POST" enctype="multipart/form-data">
+  <label for="file">Selecciona un archivo Excel:</label>
+  <input type="file" id="file" name="file" accept=".xlsx, .xls">
+  <br>
+  <label for="tableName">Nombre de la nueva tabla:</label>
+  <input type="text" id="tableName" name="tableName" placeholder="Nombre de la tabla">
+  <button type="submit">Crear y Subir</button>
+</form>
+<a href="/consulta">Ir a Consulta</a>
