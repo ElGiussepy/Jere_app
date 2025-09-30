@@ -1,0 +1,192 @@
+.dashboard-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    padding: 50px 40px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in;
+    margin: 0 auto;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dashboard-header {
+    margin-bottom: 50px;
+}
+
+.dashboard-header h1 {
+    color: #333;
+    font-size: 2.5rem; /* Más grande para monitores */
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.dashboard-header p {
+    color: #666;
+    font-size: 1.3rem;
+    font-weight: 300;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Más ancho para PC */
+    gap: 30px;
+    margin-top: 40px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tool-button {
+    background: white;
+    border: 2px solid #e1e5e9;
+    border-radius: 15px;
+    padding: 35px 25px;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px; /* Más alto para PC */
+}
+
+.tool-button:hover {
+    transform: translateY(-8px); /* Efecto más pronunciado en PC */
+    border-color: #667eea;
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.2);
+}
+
+.tool-logo {
+    width: 80px; /* Más grande para PC */
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.tool-name {
+    font-size: 1.5rem; /* Más grande para PC */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.tool-description {
+    font-size: 1rem;
+    color: #666;
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* Estilo específico para Tupperware */
+.tupperware-button {
+    border-color: #ff6b6b;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffecec 100%);
+}
+
+.tupperware-button:hover {
+    border-color: #ff6b6b;
+    box-shadow: 0 15px 35px rgba(255, 107, 107, 0.25);
+}
+
+.tupperware-name {
+    color: #ff6b6b;
+    font-size: 1.6rem;
+}
+
+.logout-section {
+    margin-top: 50px;
+    padding-top: 25px;
+    border-top: 1px solid #e1e5e9;
+}
+
+.btn-logout {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+    display: inline-block;
+}
+
+.btn-logout:hover {
+    background: #5a6268;
+    transform: none;
+}
+
+/* Responsive para el dashboard */
+@media (max-width: 992px) {
+    .dashboard-container {
+        padding: 40px 30px;
+    }
+    
+    .dashboard-header h1 {
+        font-size: 2.2rem;
+    }
+    
+    .tools-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 30px 20px;
+    }
+    
+    .dashboard-header h1 {
+        font-size: 2rem;
+    }
+    
+    .dashboard-header p {
+        font-size: 1.1rem;
+    }
+    
+    .tools-grid {
+        grid-template-columns: 1fr; /* Una columna en móviles */
+        gap: 20px;
+        max-width: 400px;
+    }
+    
+    .tool-button {
+        padding: 25px 20px;
+        min-height: 150px;
+    }
+    
+    .tool-logo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .tool-name {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-container {
+        padding: 20px 15px;
+        border-radius: 10px;
+    }
+    
+    .dashboard-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .dashboard-header p {
+        font-size: 1rem;
+    }
+    
+    .tool-button {
+        padding: 20px 15px;
+        min-height: 130px;
+    }
+}

@@ -1,0 +1,59 @@
+<div class="login-container">
+    <!-- Imagen -->
+    <img src="/images/log.jpg" alt="Logo de la aplicación" class="logo">
+    
+    <!-- Título y subtítulo -->
+    <h1>Bienvenido</h1>
+    <p class="subtitle">Ingresa tus credenciales para continuar</p>
+    
+    <!-- Formulario de login -->
+    <form action="/login" method="POST" id="loginForm">
+        <div class="form-group">
+            <label for="username">Usuario:</label>
+            <input 
+                type="text" 
+                id="username" 
+                name="username" 
+                placeholder="Ingresa tu usuario"
+                required
+                autocomplete="username"
+            >
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                placeholder="Ingresa tu contraseña"
+                required
+                autocomplete="current-password"
+            >
+        </div>
+        
+        <button type="submit" class="btn-login">Iniciar Sesión</button>
+    </form>
+
+    <!-- Mensajes -->
+    {{#if error}}
+        <div class="error-message">{{error}}</div>
+    {{/if}}
+    
+    {{#if success}}
+        <div class="success-message">{{success}}</div>
+    {{/if}}
+</div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        // Validación básica del lado del cliente
+        if (username.trim() === '' || password.trim() === '') {
+            e.preventDefault();
+            alert('Por favor, completa todos los campos');
+        }
+    });
+</script>

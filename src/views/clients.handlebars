@@ -1,0 +1,691 @@
+<div class="clients-container">
+    <!-- Header -->
+    <div class="clients-header">
+        <div class="header-title">
+            <h1>👥 Gestión de Clientes</h1>
+            <p>Administra y actualiza la base de datos de clientes</p>
+        </div>
+        <div class="header-actions">
+            <button class="btn-primary" onclick="openUpdateModal()">
+                📊 Actualizar Base de datos
+            </button>
+            <a href="/tools/tupperware" class="btn-secondary">
+                ← Volver a Herramientas
+            </a>
+        </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filters-section">
+        <h3>🔍 Filtros de Búsqueda</h3>
+        <form id="filtersForm" method="GET" action="/clients">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label for="Zona">Zona</label>
+                    <input type="number" id="Zona" name="Zona" class="filter-input" 
+                           placeholder="Filtrar por zona" value="{{filters.Zona}}">
+                </div>
+                <div class="filter-group">
+                    <label for="Grupo">Grupo</label>
+                    <input type="number" id="Grupo" name="Grupo" class="filter-input" 
+                           placeholder="Filtrar por grupo" value="{{filters.Grupo}}">
+                </div>
+                <div class="filter-group">
+                    <label for="Cliente">Cliente</label>
+                    <input type="number" id="Cliente" name="Cliente" class="filter-input" 
+                           placeholder="Filtrar por cliente" value="{{filters.Cliente}}">
+                </div>
+                <div class="filter-group">
+                    <label for="Nombre">Nombre</label>
+                    <input type="text" id="Nombre" name="Nombre" class="filter-input" 
+                           placeholder="Filtrar por nombre" value="{{filters.Nombre}}">
+                </div>
+                <div class="filter-group">
+                    <label for="Direccion">Dirección</label>
+                    <input type="text" id="Direccion" name="Direccion" class="filter-input" 
+                           placeholder="Filtrar por dirección" value="{{filters.Direccion}}">
+                </div>
+                <div class="filter-group">
+                    <label for="Localidad">Localidad</label>
+                    <input type="text" id="Localidad" name="Localidad" class="filter-input" 
+                           placeholder="Filtrar por localidad" value="{{filters.Localidad}}">
+                </div>
+                <div class="filter-group">
+                    <label for="CP">Código Postal</label>
+                    <input type="number" id="CP" name="CP" class="filter-input" 
+                           placeholder="Filtrar por CP" value="{{filters.CP}}">
+                </div>
+                <div class="filter-group">
+                    <label for="Telefono">Teléfono</label>
+                    <input type="text" id="Telefono" name="Telefono" class="filter-input" 
+                           placeholder="Filtrar por teléfono" value="{{filters.Telefono}}">
+                </div>
+            </div>
+            <div style="margin-top: 20px; display: flex; gap: 10px;">
+                <button type="submit" class="btn-primary">Aplicar Filtros</button>
+                <a href="/clients" class="btn-secondary">Limpiar Filtros</a>
+            </div>
+        </form>
+    </div>
+
+
+
+<!-- Vista de cliente individual para edición -->
+{{#if singleClient}}
+<div class="single-client-view">
+    <div class="client-header">
+        <div class="client-info">
+            👤 Cliente: {{singleClient.Cliente}} - {{singleClient.Nombre}}
+        </div>
+        <button class="btn-edit" onclick="enableEditMode()">✏️ Editar Cliente</button>
+    </div>
+
+    <!-- Formulario de edición -->
+    <form id="editClientForm">
+        <input type="hidden" id="editClienteId" name="clienteId" value="{{singleClient.Cliente}}">
+        
+        <div class="table-container">
+            <table class="clients-table">
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Valor Actual</th>
+                        <th>Nuevo Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Zona</strong></td>
+                        <td>{{singleClient.Zona}}</td>
+                        <td>
+                            <input type="number" name="Zona" value="{{singleClient.Zona}}" 
+                                   class="editable-field" disabled data-original="{{singleClient.Zona}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Grupo</strong></td>
+                        <td>{{singleClient.Grupo}}</td>
+                        <td>
+                            <input type="number" name="Grupo" value="{{singleClient.Grupo}}" 
+                                   class="editable-field" disabled data-original="{{singleClient.Grupo}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cliente</strong></td>
+                        <td>{{singleClient.Cliente}}</td>
+                        <td>
+                            <input type="number" name="Cliente" value="{{singleClient.Cliente}}" 
+                                   class="editable-field" disabled data-original="{{singleClient.Cliente}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre</strong></td>
+                        <td>{{singleClient.Nombre}}</td>
+                        <td>
+                            <input type="text" name="Nombre" value="{{singleClient.Nombre}}" 
+                                   class="editable-field" disabled data-original="{{singleClient.Nombre}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dirección</strong></td>
+                        <td>{{singleClient.Direccion}}</td>
+                        <td>
+                            <input type="text" name="Direccion" value="{{singleClient.Direccion}}" 
+                                   class="editable-field" disabled data-original="{{singleClient.Direccion}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Localidad</strong></td>
+                        <td>{{singleClient.Localidad}}</td>
+                        <td>
+                            <input type="text" name="Localidad" value="{{singleClient.Localidad}}" 
+                                   class="editable-field" disabled data-original="{{singleClient.Localidad}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Código Postal</strong></td>
+                        <td>{{singleClient.CP}}</td>
+                        <td>
+                            <input type="number" name="CP" value="{{singleClient.CP}}" 
+                                   class="editable-field" disabled data-original="{{singleClient.CP}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Teléfono</strong></td>
+                        <td>{{singleClient.Telefono}}</td>
+                        <td>
+                            <input type="text" name="Telefono" value="{{singleClient.Telefono}}" 
+                                   class="editable-field" disabled data-original="{{singleClient.Telefono}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Coordenadas</strong></td>
+                        <td>{{singleClient.Coordenadas}}</td>
+                        <td>
+                            <input type="text" name="Coordenadas" value="{{singleClient.Coordenadas}}" 
+                                   class="editable-field" disabled data-original="{{singleClient.Coordenadas}}">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Resumen de cambios -->
+        <div id="changesSummary" class="changes-summary">
+            <h4>📋 Resumen de Cambios:</h4>
+            <div id="changesList"></div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div id="editActions" class="edit-actions">
+            <button type="button" class="btn-save" onclick="saveChanges()">💾 Guardar Cambios</button>
+            <button type="button" class="btn-cancel" onclick="cancelEdit()">❌ Cancelar</button>
+        </div>
+    </form>
+</div>
+{{/if}}
+
+<!-- Información de resultados -->
+<div class="pagination-info">
+    {{#if filtersApplied}}
+        🔍 Búsqueda aplicada - 
+    {{/if}}
+    {{#if singleClient}}
+        👤 Vista individual - 
+    {{/if}}
+    Mostrando {{clientes.length}} de {{totalClientes}} clientes
+</div>
+
+    <!-- Tabla de clientes -->
+<div class="table-container">
+    <table class="clients-table">
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Zona</th>
+                <th>Grupo</th>
+                
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Localidad</th>
+                <th>CP</th>
+                <th>Teléfono</th>
+                <th>Coordenadas</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each clientes}}
+            <tr>
+                
+
+                <td>{{this.Cliente}}</td>
+                <td>{{this.Zona}}</td>
+                <td>{{this.Grupo}}</td>
+                
+                <td>{{this.Nombre}}</td>
+                <td>{{this.Direccion}}</td>
+                <td>{{this.Localidad}}</td>
+                <td>{{this.CP}}</td>
+                <td>{{this.Telefono}}</td>
+                <td>{{this.Coordenadas}}</td>
+                <td>
+                    <button class="btn-edit" onclick="viewSingleClient({{this.Cliente}})">
+                        👁️ Ver/Editar
+                    </button>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="10" style="text-align: center; padding: 40px; color: #666;">
+                    {{#if filtersApplied}}
+                        ❌ No se encontraron clientes con los filtros aplicados.<br>
+                        <small>Intenta con otros criterios de búsqueda.</small>
+                    {{else}}
+                        📝 No hay clientes en la base de datos.<br>
+                        <small>¡Actualiza la base de datos para comenzar!</small>
+                    {{/if}}
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+    <!-- Paginación -->
+    {{#if pagination.total}}
+    <div class="pagination">
+        <div class="pagination-info">
+            Página {{pagination.current}} de {{pagination.total}}
+        </div>
+        <div class="pagination-controls">
+            <a href="/clients?page={{pagination.prevPage}}{{#each filters}}{{#if this}}&{{@key}}={{this}}{{/if}}{{/each}}" 
+   class="btn-pagination {{#unless pagination.hasPrev}}disabled{{/unless}}">
+    ← Anterior
+</a>
+
+<span class="pagination-current">{{pagination.current}}</span>
+
+<a href="/clients?page={{pagination.nextPage}}{{#each filters}}{{#if this}}&{{@key}}={{this}}{{/if}}{{/each}}" 
+   class="btn-pagination {{#unless pagination.hasNext}}disabled{{/unless}}">
+    Siguiente →
+</a>
+        </div>
+    </div>
+    {{/if}}
+</div>
+
+<!-- Modal para actualizar base de datos -->
+<div id="updateModal" class="modal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeUpdateModal()">&times;</button>
+        <h2>📊 Actualizar Base de Datos</h2>
+        
+        <div id="modalStep1">
+            <p>Selecciona un archivo Excel (.xlsx) con los datos de clientes.</p>
+            <p><strong>Encabezados requeridos:</strong> Zone Comercial, Grupo, Revendedora o Cliente, Descripcion Revendedora/Cliente, Direccion 1, Localidad, Codigo Postal, Telefono</p>
+            
+            <div class="file-input" onclick="document.getElementById('excelFile').click()">
+                <input type="file" id="excelFile" accept=".xlsx,.xls">
+                <span class="file-label">📁 Haz clic para seleccionar archivo Excel</span>
+                <div id="fileName" class="file-name"></div>
+            </div>
+            
+            <div id="uploadError" class="alert alert-error" style="display: none;"></div>
+            
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeUpdateModal()">Cancelar</button>
+                <button class="btn-primary" onclick="validateExcel()" id="validateBtn" disabled>Validar Archivo</button>
+            </div>
+        </div>
+
+        <div id="modalStep2" style="display: none;">
+            <div id="validationResult"></div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="backToStep1()">Volver</button>
+                <button class="btn-success" onclick="confirmUpdate()">Confirmar Actualización</button>
+            </div>
+        </div>
+
+        <div id="modalStep3" style="display: none;">
+            <div id="updateResult"></div>
+            <div class="modal-actions">
+                <button class="btn-primary" onclick="closeAndRefresh()">Cerrar y Actualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Variables globales
+let currentExcelFile = null;
+
+// Modal functions
+function openUpdateModal() {
+    document.getElementById('updateModal').style.display = 'flex';
+    resetModal();
+}
+
+function closeUpdateModal() {
+    document.getElementById('updateModal').style.display = 'none';
+    resetModal();
+}
+
+function resetModal() {
+    document.getElementById('modalStep1').style.display = 'block';
+    document.getElementById('modalStep2').style.display = 'none';
+    document.getElementById('modalStep3').style.display = 'none';
+    document.getElementById('uploadError').style.display = 'none';
+    document.getElementById('fileName').textContent = '';
+    document.getElementById('validateBtn').disabled = true;
+    currentExcelFile = null;
+}
+
+// File handling
+document.getElementById('excelFile').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
+            currentExcelFile = file;
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('validateBtn').disabled = false;
+            document.getElementById('uploadError').style.display = 'none';
+        } else {
+            showError('Por favor, selecciona un archivo Excel (.xlsx o .xls)');
+            document.getElementById('validateBtn').disabled = true;
+        }
+    }
+});
+
+function showError(message) {
+    const errorDiv = document.getElementById('uploadError');
+    errorDiv.textContent = message;
+    errorDiv.style.display = 'block';
+}
+
+function hideError() {
+    document.getElementById('uploadError').style.display = 'none';
+}
+
+// Excel validation
+async function validateExcel() {
+    if (!currentExcelFile) {
+        showError('Por favor, selecciona un archivo Excel');
+        return;
+    }
+
+    hideError();
+    document.getElementById('validateBtn').disabled = true;
+    document.getElementById('validateBtn').textContent = 'Validando...';
+
+    const formData = new FormData();
+    formData.append('archivoExcel', currentExcelFile);
+
+    try {
+        const response = await fetch('/clients/actualizar-base', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            showValidationSuccess(result);
+        } else {
+            showValidationError(result);
+        }
+    } catch (error) {
+        showError('Error de conexión: ' + error.message);
+    } finally {
+        document.getElementById('validateBtn').disabled = false;
+        document.getElementById('validateBtn').textContent = 'Validar Archivo';
+    }
+}
+
+function showValidationSuccess(result) {
+    document.getElementById('modalStep1').style.display = 'none';
+    document.getElementById('modalStep2').style.display = 'block';
+    
+    const validationResult = document.getElementById('validationResult');
+    validationResult.innerHTML = `
+        <div class="alert alert-success">
+            <strong>✅ Archivo validado correctamente</strong><br>
+            Se encontraron ${result.totalRows} filas de datos.<br>
+            Todos los encabezados requeridos están presentes.
+        </div>
+        <p>¿Deseas continuar con la actualización de la base de datos?</p>
+        <p><strong>Nota:</strong> Esta acción actualizará los clientes existentes y agregará nuevos clientes.</p>
+    `;
+}
+
+function showValidationError(result) {
+    let errorHtml = `<div class="alert alert-error">
+        <strong>❌ Error en la validación</strong><br>
+        ${result.error}
+    </div>`;
+    
+    if (result.missingHeaders) {
+        errorHtml += `<p><strong>Encabezados faltantes:</strong></p><ul>`;
+        result.missingHeaders.forEach(header => {
+            errorHtml += `<li>${header}</li>`;
+        });
+        errorHtml += `</ul>`;
+    }
+    
+    const validationResult = document.getElementById('validationResult');
+    validationResult.innerHTML = errorHtml;
+    
+    document.getElementById('modalStep1').style.display = 'none';
+    document.getElementById('modalStep2').style.display = 'block';
+}
+
+function backToStep1() {
+    document.getElementById('modalStep2').style.display = 'none';
+    document.getElementById('modalStep1').style.display = 'block';
+}
+
+// Confirm and update
+async function confirmUpdate() {
+    const formData = new FormData();
+    formData.append('archivoExcel', currentExcelFile);
+
+    try {
+        const response = await fetch('/clients/confirmar-actualizacion', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        document.getElementById('modalStep2').style.display = 'none';
+        document.getElementById('modalStep3').style.display = 'block';
+
+        const updateResult = document.getElementById('updateResult');
+        
+        if (result.success) {
+            updateResult.innerHTML = `
+                <div class="alert alert-success">
+                    <strong>✅ Actualización completada</strong>
+                </div>
+                <div class="alert alert-info">
+                    <strong>📊 Resumen de la actualización:</strong><br>
+                    • Clientes agregados: ${result.resumen.clientesAgregados}<br>
+                    • Clientes con dirección cambiada: ${result.resumen.clientesConDireccionCambiada}<br>
+                    • Total de registros procesados: ${result.resumen.totalProcesados}
+                </div>
+                <p>La base de datos ha sido actualizada exitosamente.</p>
+            `;
+        } else {
+            updateResult.innerHTML = `
+                <div class="alert alert-error">
+                    <strong>❌ Error en la actualización</strong><br>
+                    ${result.error}
+                </div>
+            `;
+        }
+    } catch (error) {
+        const updateResult = document.getElementById('updateResult');
+        updateResult.innerHTML = `
+            <div class="alert alert-error">
+                <strong>❌ Error de conexión</strong><br>
+                ${error.message}
+            </div>
+        `;
+    }
+}
+
+function closeAndRefresh() {
+    closeUpdateModal();
+    window.location.reload();
+}
+
+// Close modal when clicking outside
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('updateModal');
+    if (event.target === modal) {
+        closeUpdateModal();
+    }
+});
+// Variables para el modo edición
+let originalData = {};
+let editMode = false;
+
+// Ver cliente individual
+function viewSingleClient(clienteId) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('Cliente', clienteId);
+    url.searchParams.set('single', 'true');
+    window.location.href = url.toString();
+}
+
+// Habilitar modo edición
+function enableEditMode() {
+    if (editMode) return;
+    
+    editMode = true;
+    document.body.classList.add('edit-mode');
+    
+    // Habilitar todos los campos editables
+    const editableFields = document.querySelectorAll('.editable-field');
+    editableFields.forEach(field => {
+        field.disabled = false;
+        // Guardar valor original
+        originalData[field.name] = field.value;
+        
+        // Agregar evento para detectar cambios
+        field.addEventListener('input', updateChangesSummary);
+    });
+    
+    // Mostrar botones de acción
+    document.getElementById('editActions').style.display = 'block';
+    
+    // Deshabilitar botón de editar
+    document.querySelector('.btn-edit').disabled = true;
+}
+
+// Cancelar edición
+function cancelEdit() {
+    editMode = false;
+    document.body.classList.remove('edit-mode');
+    
+    // Restaurar valores originales
+    const editableFields = document.querySelectorAll('.editable-field');
+    editableFields.forEach(field => {
+        field.disabled = true;
+        field.value = originalData[field.name];
+    });
+    
+    // Ocultar botones de acción
+    document.getElementById('editActions').style.display = 'none';
+    document.getElementById('changesSummary').style.display = 'none';
+    
+    // Habilitar botón de editar
+    document.querySelector('.btn-edit').disabled = false;
+    
+    // Limpiar datos
+    originalData = {};
+}
+
+// Actualizar resumen de cambios
+function updateChangesSummary() {
+    const changes = [];
+    const formData = new FormData(document.getElementById('editClientForm'));
+    
+    for (let [field, value] of formData.entries()) {
+        if (field === 'clienteId') continue;
+        
+        const originalValue = originalData[field];
+        if (value !== originalValue) {
+            changes.push({
+                field: field,
+                oldValue: originalValue,
+                newValue: value
+            });
+        }
+    }
+    
+    const changesList = document.getElementById('changesList');
+    const changesSummary = document.getElementById('changesSummary');
+    
+    if (changes.length > 0) {
+        changesList.innerHTML = changes.map(change => `
+            <div class="change-item">
+                <strong>${getFieldDisplayName(change.field)}:</strong>
+                <span class="field-old">${change.oldValue || '(vacío)'}</span> → 
+                <span class="field-new">${change.newValue}</span>
+            </div>
+        `).join('');
+        changesSummary.style.display = 'block';
+    } else {
+        changesSummary.style.display = 'none';
+    }
+}
+
+// Obtener nombre display para campos
+function getFieldDisplayName(field) {
+    const fieldNames = {
+        'Zona': 'Zona',
+        'Grupo': 'Grupo',
+        'Cliente': 'Número de Cliente',
+        'Nombre': 'Nombre',
+        'Direccion': 'Dirección',
+        'Localidad': 'Localidad',
+        'CP': 'Código Postal',
+        'Telefono': 'Teléfono',
+        'Coordenadas': 'Coordenadas'
+    };
+    return fieldNames[field] || field;
+}
+
+// Guardar cambios
+async function saveChanges() {
+    const formData = new FormData(document.getElementById('editClientForm'));
+    const clienteId = formData.get('clienteId');
+    const updates = {};
+    const changes = [];
+    
+    // Recolectar campos modificados
+    for (let [field, value] of formData.entries()) {
+        if (field === 'clienteId') continue;
+        
+        const originalValue = originalData[field];
+        if (value !== originalValue) {
+            updates[field] = value;
+            changes.push({
+                field: field,
+                oldValue: originalValue,
+                newValue: value
+            });
+        }
+    }
+    
+    if (Object.keys(updates).length === 0) {
+        alert('❌ No hay cambios para guardar');
+        return;
+    }
+    
+    if (!confirm('¿Estás seguro de que deseas guardar los cambios?')) {
+        return;
+    }
+    
+    try {
+        const response = await fetch('/clients/actualizar-cliente', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                clienteId: clienteId,
+                updates: updates
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            // Mostrar resumen de cambios guardados
+            let message = '✅ Cambios guardados correctamente:\\n\\n';
+            changes.forEach(change => {
+                message += `• ${getFieldDisplayName(change.field)}: "${change.oldValue}" → "${change.newValue}"\\n`;
+            });
+            
+            alert(message);
+            
+            // Recargar la página para ver los cambios
+            window.location.reload();
+        } else {
+            alert('❌ Error al guardar cambios: ' + result.error);
+        }
+    } catch (error) {
+        alert('❌ Error de conexión: ' + error.message);
+    }
+}
+
+// Volver a la vista normal
+function backToList() {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('Cliente');
+    url.searchParams.delete('single');
+    window.location.href = url.toString();
+}
+</script>
